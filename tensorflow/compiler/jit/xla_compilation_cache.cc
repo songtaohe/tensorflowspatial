@@ -395,6 +395,18 @@ Status XlaCompilationCache::CompileImpl(
               << tensorflow::strings::HumanReadableElapsedTime(
                      it->second.cumulative_compile_time_us / 1.0e6)
               << ")";
+      
+      LOG(INFO) << "compiled " << function.name() << " "
+              << it->second.compile_count
+              << " times, compile time: " << compile_time_us
+              << " us, cumulative: " << it->second.cumulative_compile_time_us
+              << " us ("
+              << tensorflow::strings::HumanReadableElapsedTime(compile_time_us /
+                                                               1.0e6)
+              << " / "
+              << tensorflow::strings::HumanReadableElapsedTime(
+                     it->second.cumulative_compile_time_us / 1.0e6)
+              << ")";
 
       XlaJitCompilationActivity jit_compilation_activity;
       jit_compilation_activity.set_cluster_name(function.name());
